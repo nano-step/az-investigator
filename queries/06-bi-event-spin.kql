@@ -1,0 +1,42 @@
+// BI events (spin / win / bet amounts / balance updates) live ONLY in <your-bi-event-role>
+// service's AppTraces — NOT in AppRequests, AppDependencies, or AppEvents.
+// Each row's Message contains "----serializedEvent {<JSON>}" prefix.
+//
+// Use this to answer:
+//   - "Who won SC in the last N hours?"
+//   - "What's the bet/win amount on this spin?"
+//   - "Find spin_event by UserId for a specific game"
+//
+// Filter knobs:
+//   <UNIT>   = "sweep" (SC) | "gold" (GC)
+//   <FLOW>   = "spin" | "economy" | "session" | "quests"
+//   <ACTION> = "spin_event" | "update_balance" | "bankruptcy" | etc.
+let lookback = 24h;
+AppTraces
+| where TimeGenerated >= ago(lookback)
+| where AppRoleName == "<your-bi-event-role>"
+| where Message has "\"action\":\"spin_event\""
+| where Message has "\"unit_name\":\"sweep\""    // change to "gold" for GC
+| where Message has "\"win_type\":\"win\""        // remove for both wins+losses
+| extend Payload = parse_json(extract(@"----serializedEvent\s+(\{.+\})\s*$", 1, Message))
+| extend E = Payload.Data[0]
+| project TimeGenerated,
+          UserId       = tolong(E.game_user_id),
+          SupportCode = tostring(E.support_code),
+          GameId      = tostring(E.game_id),
+          Provider    = tostring(E.game_provider_id),
+          BetAmount   = todouble(E.bet_amount),
+          WinAmount   = todouble(E.win_amount),
+          UnitName    = tostring(E.unit_name),
+          WinType     = tostring(E.win_type),
+          SpinType    = tostring(E.spin_type),
+          SweepBalAfter = todouble(E.current_sweep_balance),
+          GoldBalAfter  = todouble(E.current_gold_balance),
+          Country     = tostring(E.country),
+          State       = tostring(E.state),
+          ClientType  = tostring(E.client_type),
+          OsPlatform  = tostring(E.os_platform),
+          Browser     = tostring(E.browser_name),
+          GameSessId  = tostring(E.game_session_id)
+| sort by TimeGenerated desc
+| take 500

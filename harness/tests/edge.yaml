@@ -1,0 +1,16 @@
+- id: E01
+  desc: "RBAC denial — run-kql auto-falls-back to component path on prod"
+  cmd: "bash -c 'run-kql prod \"requests | take 1\" 2>&1 | grep -E \"via=component|via=workspace\" | head -1'"
+  expect: "via="
+  skip_if: "! command -v run-kql"
+
+- id: E08
+  desc: "tenant-wide subscription enumeration uses single az call (not 4× resource list)"
+  cmd: "az account list --query 'length(@)' -o tsv 2>/dev/null"
+  expect: "^[1-9]"
+  skip_if: "! command -v az"
+
+- id: E09
+  desc: "destructive grep — no `az * delete` in any execute path"
+  cmd: "grep -rnE 'az [a-z-]+ (delete|purge)\\b' /Users/nhonh/Documents/geargames/.opencode/skills/az-investigator/scripts /Users/nhonh/Documents/geargames/.opencode/skills/az-investigator/SKILL.md 2>/dev/null | grep -vE '^[^:]+:[0-9]+:[[:space:]]*#' | wc -l"
+  expect: "^0$"

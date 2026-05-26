@@ -1,0 +1,12 @@
+// Standard exception triage. Group by exception type + outer message prefix.
+AppExceptions
+| where TimeGenerated >= ago(1h)
+| where AppRoleName == "<ROLE>"
+| extend MsgPrefix = substring(OuterMessage, 0, 100)
+| summarize Count=count(),
+            FirstSeen=min(TimeGenerated),
+            LastSeen=max(TimeGenerated),
+            Pods=dcount(AppRoleInstance)
+  by ExceptionType=ProblemId, MsgPrefix
+| order by Count desc
+| take 30

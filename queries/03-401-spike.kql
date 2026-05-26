@@ -1,0 +1,17 @@
+// Attribute a 401 spike to its source: endpoint, user, IP.
+// Run three passes — overall, by IP, by UserId.
+AppRequests
+| where TimeGenerated >= ago(1h)
+| where ResultCode == "401"
+| extend UserId      = tostring(Properties["request-X-PSA-ID"]),
+         CtxUserId   = tostring(Properties["ctx_UserId"]),
+         ErrorCode  = tostring(Properties["_ErrorCode"]),
+         ErrorMsg   = tostring(Properties["_ErrorMessage"])
+| summarize Count=count(),
+            FirstSeen=min(TimeGenerated),
+            LastSeen=max(TimeGenerated),
+            Endpoints=make_set(Name, 10),
+            ErrorCodes=make_set(ErrorCode, 5)
+  by UserId, ClientIP=tostring(ClientIP)
+| order by Count desc
+| take 20

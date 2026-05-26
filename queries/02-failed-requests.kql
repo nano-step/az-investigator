@@ -1,0 +1,13 @@
+// Find failing endpoints. Group by url + result code.
+// Replace <ROLE> with the value discovered in 01-discover-roles.kql.
+AppRequests
+| where TimeGenerated >= ago(1h)
+| where AppRoleName == "<ROLE>"
+| where Success == false
+| summarize Count=count(),
+            FirstSeen=min(TimeGenerated),
+            LastSeen=max(TimeGenerated),
+            Pods=dcount(AppRoleInstance)
+  by ResultCode, Name
+| order by Count desc
+| take 30

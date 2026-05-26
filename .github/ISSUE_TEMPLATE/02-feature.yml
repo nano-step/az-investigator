@@ -1,0 +1,45 @@
+name: Feature request / new use case
+description: Suggest a new Azure investigation pattern, KQL template, or workflow improvement
+title: "[feat] "
+labels: ["enhancement", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before opening, please check [`PLAN-v2.md`](https://github.com/nano-step/az-investigator/blob/master/PLAN-v2.md) — many planned features are already tracked there.
+
+  - type: textarea
+    id: use_case
+    attributes:
+      label: Investigation use case
+      description: What Azure incident / question would this feature help answer?
+      placeholder: e.g. "When AKS pods restart in a tight loop, I want to attribute it to OOM vs liveness-probe failure vs ImagePullBackOff."
+    validations:
+      required: true
+
+  - type: textarea
+    id: trigger
+    attributes:
+      label: How should an opencode agent know to use this?
+      description: What user prompt / trigger phrase should activate this investigation path?
+    validations:
+      required: true
+
+  - type: textarea
+    id: kql
+    attributes:
+      label: Sketch the KQL / ARG / Activity Log query (if you have one)
+      render: kusto
+    validations:
+      required: false
+
+  - type: dropdown
+    id: risk
+    attributes:
+      label: Risk lane (your guess)
+      options:
+        - tiny — additive new query template, no contract changes
+        - normal — new script or workflow, backwards-compatible
+        - high-risk — changes existing contract or breaks v1 consumers
+    validations:
+      required: true

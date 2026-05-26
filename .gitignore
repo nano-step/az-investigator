@@ -1,0 +1,28 @@
+# Local machine state (per-developer; not committed)
+az-venv/
+.az-venv/
+
+# Test-run artifacts written by harness/scripts/run-tests.sh
+harness/evidence/2*/
+harness/evidence/*.tsv
+harness/evidence/*.out
+harness/evidence/last-review.txt
+
+# Lesson-promotion backups
+harness/LESSONS_INDEX.md.bak
+harness/BACKLOG.md.bak
+
+# Editor / OS noise
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Python venv / cache
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Node — none of our publish path uses node modules
+node_modules/

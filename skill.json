@@ -1,0 +1,24 @@
+{
+  "name": "az-investigator",
+  "version": "1.0.0",
+  "description": "Install Azure CLI + Azure MCP into an ephemeral ai-sandbox container in a way that survives rebuilds, then run KQL investigations against your Azure Log Analytics workspaces (stg/qa/trunk/prod). Includes a workspace-vs-component RBAC fallback wrapper, per-env resource discovery, battle-tested KQL templates for backend traces / BI events / 401 spikes / game-vendor plays / user timelines, and proof-discipline guardrails that distinguish confirmed findings from hypotheses.",
+  "compatibility": "OpenCode running in a Docker ai-sandbox (Debian) on macOS host, with /home/<user> bind-mounted from host, npm + python3 + curl available, and an Azure AD account that has previously logged in via az login (MSAL cache at ~/.azure persists across sandbox rebuilds).",
+  "agent": null,
+  "commands": [],
+  "tags": [
+    "azure",
+    "log-analytics",
+    "app-insights",
+    "kql",
+    "azmcp",
+    "sandbox",
+    "ai-sandbox-wrapper",
+    "incident-investigation",
+    "ps-sweeps",
+    "playsweeps",
+    "401-investigation",
+    "bi-events",
+    "slot-studio",
+    "sweeps-backend"
+  ]
+}

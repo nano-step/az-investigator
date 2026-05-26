@@ -1,0 +1,15 @@
+// game-vendor webhook activity. Adapts to any game vendor by changing the URL prefix.
+// To find by game provider in general: AppRequests | where Url contains "/games/"
+AppRequests
+| where TimeGenerated >= ago(24h)
+| where AppRoleName == "<YOUR_BACKEND_ROLE>"
+| where Name startswith "POST GameVendorGame"
+| extend
+    SupportCode = tostring(Properties["SupportCode"]),
+    GameId      = tostring(Properties["gameId"]),
+    Currency    = tostring(Properties["clientCurrency"]),
+    UserId       = tostring(Properties["UserId"])
+| project TimeGenerated, Name, SupportCode, GameId, Currency, UserId,
+          Success, DurationMs, OperationId, AppRoleInstance
+| order by TimeGenerated desc
+| take 200

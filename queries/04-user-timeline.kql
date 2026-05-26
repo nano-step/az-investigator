@@ -1,0 +1,19 @@
+// Full request timeline for a UserId. Useful for "what did this user do today".
+// Replace <PSA_ID> with the numeric ID.
+//
+// NOTE: pre-auth requests (login, /maintenance, /signin) carry NO request-X-PSA-ID.
+// We match on BOTH the header AND ctx_UserId (set by backend after JWT validation)
+// to catch all activity. Pre-auth requests with no UserId at all are intentionally
+// not returned by this query — query by client_IP separately if needed.
+AppRequests
+| where TimeGenerated >= ago(24h)
+| where tostring(Properties["request-X-PSA-ID"]) == "<PSA_ID>"
+     or tostring(Properties["ctx_UserId"]) == "<PSA_ID>"
+| project TimeGenerated, Name, Url, ResultCode, Success, DurationMs,
+          UserIdHeader = tostring(Properties["request-X-PSA-ID"]),
+          CtxUserId    = tostring(Properties["ctx_UserId"]),
+          SupportCode = tostring(Properties["ctx_SupportCode"]),
+          ErrorCode   = tostring(Properties["_ErrorCode"]),
+          OperationId, AppRoleInstance
+| order by TimeGenerated asc
+| take 200

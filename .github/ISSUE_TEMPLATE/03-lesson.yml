@@ -1,0 +1,53 @@
+name: Share a lesson learned
+description: You hit a quirk / surprise / footgun while using the skill — share the lesson so others don't have to learn it the hard way
+title: "[lesson] "
+labels: ["lesson", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Lessons drive the skill. Ideally, run `bash harness/scripts/capture-lesson.sh` locally first, attach the resulting markdown file, and open this issue to discuss promotion to a code change.
+
+        If you don't have a local clone, fill in the fields below and we'll create the lesson file for you.
+
+  - type: input
+    id: title
+    attributes:
+      label: One-line lesson summary
+      placeholder: e.g. "Cosmos dependency type is 'Azure DocumentDB', not 'Cosmos'"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      options:
+        - cosmetic — style / wording
+        - annoying — slowed me down but I recovered
+        - data-corrupting — gave the wrong answer or no answer when there was one
+        - reasoning-error — I drew an incorrect conclusion that survived multiple turns
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: What actually happened
+    validations:
+      required: true
+
+  - type: textarea
+    id: rule
+    attributes:
+      label: Generalizable rule (one sentence)
+      description: How would you summarize this so the next person hits it for 0 minutes instead of N?
+    validations:
+      required: true

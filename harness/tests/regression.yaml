@@ -1,0 +1,17 @@
+- id: R02
+  desc: "p95 latency probe on staging"
+  cmd: "run-kql stg 'AppRequests | where TimeGenerated >= ago(1h) | summarize p95=percentile(DurationMs, 95) by Name | take 5' 2>/dev/null"
+  expect: "PrimaryResult"
+  skip_if: "! command -v run-kql"
+
+- id: R03
+  desc: "dependency failures query parses and runs (empty result OK)"
+  cmd: "run-kql stg 'AppDependencies | where TimeGenerated >= ago(1h) | where Success == false | take 5' 2>/dev/null"
+  expect: "PrimaryResult|^\\[\\]$"
+  skip_if: "! command -v run-kql"
+
+- id: R20
+  desc: "v1 consumer must still work"
+  cmd: "run-kql stg 'AppRequests | take 1 | project TimeGenerated, Name' 2>/dev/null"
+  expect: "TimeGenerated"
+  skip_if: "! command -v run-kql"

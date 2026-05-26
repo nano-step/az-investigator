@@ -1,0 +1,9 @@
+// ALWAYS run this FIRST before any filtered query.
+// Lists actual AppRoleName values active in the workspace.
+// Do NOT trust local appsettings.json — staging used "<YOUR_BACKEND_ROLE>"
+// while appsettings.Local.json had "<YOUR_LOCAL_ROLE_NAME>".
+AppTraces
+| where TimeGenerated >= ago(24h)
+| summarize Count=count(), LastSeen=max(TimeGenerated) by AppRoleName
+| order by Count desc
+| take 20

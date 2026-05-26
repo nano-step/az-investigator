@@ -1,0 +1,40 @@
+- id: S01
+  desc: "list my subscriptions"
+  cmd: "az account list --output tsv 2>/dev/null | wc -l"
+  expect: "^[1-9]"
+  skip_if: "! command -v az"
+
+- id: S02
+  desc: "any 5xx in staging in last 15 min"
+  cmd: "run-kql stg 'AppRequests | where TimeGenerated >= ago(15m) | take 1' 2>/dev/null"
+  expect: "PrimaryResult"
+  skip_if: "! command -v run-kql"
+
+- id: S03
+  desc: "top 3 exceptions in prod last hour"
+  cmd: "run-kql prod 'exceptions | where timestamp >= ago(1h) | summarize count() by problemId | take 3' 2>/dev/null"
+  expect: "PrimaryResult"
+  skip_if: "! command -v run-kql"
+
+- id: S04
+  desc: "user timeline by UserId"
+  cmd: "run-kql stg 'AppRequests | where TimeGenerated >= ago(7d) | take 1' 2>/dev/null"
+  expect: "TimeGenerated"
+  skip_if: "! command -v run-kql"
+
+- id: S07
+  desc: "activity log audit"
+  cmd: "az monitor activity-log list --max-events 1 -o tsv 2>/dev/null"
+  expect: "."
+  skip_if: "! command -v az"
+
+- id: S09
+  desc: "role assignments on a sub I have access to"
+  cmd: "az role assignment list --all --include-inherited --query '[0]' -o tsv 2>/dev/null"
+  expect: "."
+  skip_if: "! command -v az"
+
+- id: S10
+  desc: "skill scripts pass bash -n"
+  cmd: "bash -n /Users/nhonh/Documents/geargames/.opencode/skills/az-investigator/scripts/run-kql.sh && bash -n /Users/nhonh/Documents/geargames/.opencode/skills/az-investigator/scripts/install.sh && bash -n /Users/nhonh/Documents/geargames/.opencode/skills/az-investigator/scripts/audit-persistence.sh && bash -n /Users/nhonh/Documents/geargames/.opencode/skills/az-investigator/scripts/repair.sh && echo OK"
+  expect: "OK"
