@@ -2,7 +2,7 @@
 
 > Status: **DRAFT — pending review**
 > Owner: Sisyphus
-> Source skill: [`az-investigator/`](file:///Users/nhonh/Documents/geargames/.opencode/skills/az-investigator/) v1.0.0
+> Source skill: [`az-investigator/`](./) v1.0.0
 > Publish target: `nano-step/skill-manager` master (auto-publish to npm via `nano-step/shared-workflows@v1 publish-stable`)
 > Lifecycle: discovery → use-case catalog → spec → implement → test → fix → regression → approve → publish
 
@@ -19,14 +19,14 @@ Two new contracts on top of v1:
 
 | v1 asset | v2 disposition |
 |---|---|
-| [`scripts/run-kql.sh`](file:///Users/nhonh/Documents/geargames/.opencode/skills/az-investigator/scripts/run-kql.sh) | Kept verbatim. v2 adds `run-arg.sh` (Resource Graph) and `run-az.sh` (typed az CLI wrapper) alongside it. |
-| [`scripts/install.sh`](file:///Users/nhonh/Documents/geargames/.opencode/skills/az-investigator/scripts/install.sh) | Kept; v2 adds `resource-graph` extension to the idempotent install set. |
-| [`scripts/audit-persistence.sh`](file:///Users/nhonh/Documents/geargames/.opencode/skills/az-investigator/scripts/audit-persistence.sh) | Kept verbatim. |
-| [`scripts/repair.sh`](file:///Users/nhonh/Documents/geargames/.opencode/skills/az-investigator/scripts/repair.sh) | Kept verbatim. |
-| [`queries/01-discover-roles.kql`](file:///Users/nhonh/Documents/geargames/.opencode/skills/az-investigator/queries/01-discover-roles.kql) → [`queries/07-exception-by-type.kql`](file:///Users/nhonh/Documents/geargames/.opencode/skills/az-investigator/queries/07-exception-by-type.kql) | Kept verbatim; renumbered as `queries/log-analytics/01..07` to make room for new categories. |
-| [`references/env-map.md`](file:///Users/nhonh/Documents/geargames/.opencode/skills/az-investigator/references/env-map.md) | Kept verbatim as the your team reference. v2 adds `references/discovery-recipes.md` for non-arbitrary Azure tenants. |
-| [`references/known-quirks.md`](file:///Users/nhonh/Documents/geargames/.opencode/skills/az-investigator/references/known-quirks.md) | Kept; v2 appends Q21–Q40 covering Resource Graph / Activity Log / Metrics gotchas. |
-| [`references/devtools-probe.md`](file:///Users/nhonh/Documents/geargames/.opencode/skills/az-investigator/references/devtools-probe.md) | Kept verbatim. |
+| [`scripts/run-kql.sh`](./scripts/run-kql.sh) | Kept verbatim. v2 adds `run-arg.sh` (Resource Graph) and `run-az.sh` (typed az CLI wrapper) alongside it. |
+| [`scripts/install.sh`](./scripts/install.sh) | Kept; v2 adds `resource-graph` extension to the idempotent install set. |
+| [`scripts/audit-persistence.sh`](./scripts/audit-persistence.sh) | Kept verbatim. |
+| [`scripts/repair.sh`](./scripts/repair.sh) | Kept verbatim. |
+| [`queries/01-discover-roles.kql`](./queries/01-discover-roles.kql) → [`queries/07-exception-by-type.kql`](./queries/07-exception-by-type.kql) | Kept verbatim; renumbered as `queries/log-analytics/01..07` to make room for new categories. |
+| [`references/env-map.md`](./references/env-map.md) | Kept verbatim as the your team reference. v2 adds `references/discovery-recipes.md` for non-arbitrary Azure tenants. |
+| [`references/known-quirks.md`](./references/known-quirks.md) | Kept; v2 appends Q21–Q40 covering Resource Graph / Activity Log / Metrics gotchas. |
+| [`references/devtools-probe.md`](./references/devtools-probe.md) | Kept verbatim. |
 | `skill.json` | Bump version `1.0.0` → `2.0.0`. Add tags: `resource-graph`, `activity-log`, `metrics`, `service-health`, `cost`, `key-vault`, `storage-account`, `sql`, `aks`, `app-service`, `functions`, `cosmos-db`. |
 
 ---
@@ -448,7 +448,7 @@ All of these must be true:
 
 | Repo | Purpose |
 |---|---|
-| Local skill dir | [`/Users/nhonh/Documents/geargames/.opencode/skills/az-investigator/`](file:///Users/nhonh/Documents/geargames/.opencode/skills/az-investigator/) (source of truth during dev) |
+| Local skill dir | [`~/.config/opencode/skills/az-investigator/`](./) (source of truth during dev) |
 | `nano-step/skill-manager` | Public npm package; receives the skill via `sync-skill-to-manager` |
 | `nano-step/shared-workflows` | Owns the `publish-stable` GitHub Action that fires on push to master |
 | `nano-step/private-skills` (if classified private) | Mirror copy; rarely needed for this skill since the Azure investigation logic is generic |

@@ -58,7 +58,7 @@ Expected output for a working sandbox:
 
 ```
 PERSIST ✅  /home/<user>  (and all its children)
-PERSIST ✅  /Users/nhonh/Documents/geargames/.opencode  (project path)
+PERSIST ✅  $HOME/.local/share/az-investigator  (skill state path)
 PERSIST ✅  /home/<user>/.azure  (MSAL token cache)
 PERSIST ✅  /home/<user>/.npm-global  (global npm bins)
 OVERLAY ❌  /tmp/*  (wiped on rebuild — never install here)
@@ -80,7 +80,7 @@ This installs (all to persistent paths):
 
 | Tool | Where | Why |
 |---|---|---|
-| Azure CLI 2.86+ (`az`) | `/Users/nhonh/Documents/geargames/.opencode/az-venv` | KQL queries via `az monitor log-analytics query` + fallback `az monitor app-insights query` |
+| Azure CLI 2.86+ (`az`) | `$HOME/.local/share/az-investigator/az-venv` (override with `$PROJECT_DIR`) | KQL queries via `az monitor log-analytics query` + fallback `az monitor app-insights query` |
 | `log-analytics` extension | `~/.azure/cliextensions/` | Required for the KQL subcommand |
 | `azure-monitor-query` Python SDK | same venv | Programmatic access if scripting Python |
 | `azure-identity` | same venv | SDK auth |

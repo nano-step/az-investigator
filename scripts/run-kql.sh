@@ -17,7 +17,7 @@
 
 set -euo pipefail
 
-VENV="${AZURE_VENV:-/Users/nhonh/Documents/geargames/.opencode/az-venv}"
+VENV="${AZURE_VENV:-$HOME/.local/share/az-investigator/az-venv}"
 if [[ ! -x "$VENV/bin/az" ]]; then
   echo "ERR: az not found at $VENV/bin/az — run skill install.sh first" >&2
   exit 2

@@ -12,5 +12,6 @@
 
 - id: E09
   desc: "destructive grep — no `az * delete` in any execute path"
-  cmd: "grep -rnE 'az [a-z-]+ (delete|purge)\\b' /Users/nhonh/Documents/geargames/.opencode/skills/az-investigator/scripts /Users/nhonh/Documents/geargames/.opencode/skills/az-investigator/SKILL.md 2>/dev/null | grep -vE '^[^:]+:[0-9]+:[[:space:]]*#' | wc -l"
+  cmd: "grep -rnE 'az [a-z-]+ (delete|purge)\\b' \"$AZ_INVESTIGATOR_ROOT\"/scripts \"$AZ_INVESTIGATOR_ROOT\"/SKILL.md 2>/dev/null | grep -vE '^[^:]+:[0-9]+:[[:space:]]*#' | wc -l"
+  env: "AZ_INVESTIGATOR_ROOT=${AZ_INVESTIGATOR_ROOT:-$HOME/.config/opencode/skills/az-investigator}"
   expect: "^0$"

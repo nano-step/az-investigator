@@ -34,8 +34,8 @@ for p in \
   /home/<user>/.npm-global \
   /home/<user>/.cache/pip \
   /home/<user>/.local/bin \
-  /Users/nhonh/Documents/geargames \
-  /Users/nhonh/Documents/geargames/.opencode \
+  "$HOME/.local/share" \
+  "$HOME/.local/share/az-investigator" \
   /tmp \
   /opt/chromium \
   /opt/playwright-browsers
@@ -56,7 +56,7 @@ echo "=== Existing az binary (if any) ==="
 if command -v az >/dev/null 2>&1; then
   echo "az found at $(command -v az)"
   az --version 2>/dev/null | head -1
-elif [[ -x /Users/nhonh/Documents/geargames/.opencode/az-venv/bin/az ]]; then
+elif [[ -x "$HOME/.local/share/az-investigator/az-venv/bin/az" ]]; then
   echo "az found at persistent venv (not on PATH — bashrc may need reload)"
 else
   echo "az NOT installed. Run scripts/install.sh."

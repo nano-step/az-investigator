@@ -36,5 +36,6 @@
 
 - id: S10
   desc: "skill scripts pass bash -n"
-  cmd: "bash -n /Users/nhonh/Documents/geargames/.opencode/skills/az-investigator/scripts/run-kql.sh && bash -n /Users/nhonh/Documents/geargames/.opencode/skills/az-investigator/scripts/install.sh && bash -n /Users/nhonh/Documents/geargames/.opencode/skills/az-investigator/scripts/audit-persistence.sh && bash -n /Users/nhonh/Documents/geargames/.opencode/skills/az-investigator/scripts/repair.sh && echo OK"
+  cmd: "bash -n \"$AZ_INVESTIGATOR_ROOT\"/scripts/run-kql.sh && bash -n \"$AZ_INVESTIGATOR_ROOT\"/scripts/install.sh && bash -n \"$AZ_INVESTIGATOR_ROOT\"/scripts/audit-persistence.sh && bash -n \"$AZ_INVESTIGATOR_ROOT\"/scripts/repair.sh && echo OK"
+  env: "AZ_INVESTIGATOR_ROOT=${AZ_INVESTIGATOR_ROOT:-$HOME/.config/opencode/skills/az-investigator}"
   expect: "OK"

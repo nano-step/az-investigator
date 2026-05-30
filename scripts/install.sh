@@ -7,7 +7,7 @@
 
 set -euo pipefail
 
-PROJECT_DIR="${PROJECT_DIR:-/Users/nhonh/Documents/geargames/.opencode}"
+PROJECT_DIR="${PROJECT_DIR:-$HOME/.local/share/az-investigator}"
 AZ_VENV="$PROJECT_DIR/az-venv"
 NPM_BIN="$HOME/.npm-global/bin"
 LOCAL_BIN="$HOME/.local/bin"

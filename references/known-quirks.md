@@ -10,7 +10,7 @@ Every entry below burned at least one turn in a real session. Read them before r
 
 ### Q2. `/tmp` is on the container overlay, always wiped
 
-Never install anything to `/tmp/opencode/*`. The `/tmp/opencode/` path mentioned in earlier opencode docs is a working directory, not persistent storage. Use `/Users/nhonh/Documents/geargames/.opencode/` or `/home/<user>/.local/` for anything that must survive a rebuild.
+Never install anything to `/tmp/opencode/*`. The `/tmp/opencode/` path mentioned in earlier opencode docs is a working directory, not persistent storage. Use `$HOME/.local/share/az-investigator/` (the skill's default `$PROJECT_DIR`) or any other path under `/home/<user>/.local/` for anything that must survive a rebuild.
 
 ### Q3. Sudo / root is unavailable
 
