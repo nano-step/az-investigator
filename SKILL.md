@@ -49,7 +49,7 @@ Do NOT use this skill for:
 Sandbox containers are ephemeral. Before installing anything, verify which paths persist:
 
 ```bash
-bash /Users/nhonh/Documents/geargames/.opencode/skills/az-investigator/scripts/audit-persistence.sh
+bash ~/.config/opencode/skills/az-investigator/scripts/audit-persistence.sh
 ```
 
 The script tests with **device number** (`stat -c '%D'`), not `findmnt`. `findmnt` only shows mount roots — child directories of a bind-mount inherit persistence but appear absent from `findmnt`. **Trust device numbers, not mount listings.**
@@ -73,7 +73,7 @@ If `/home/<user>/.azure/msal_token_cache.json` is missing → user has not logge
 Run:
 
 ```bash
-bash /Users/nhonh/Documents/geargames/.opencode/skills/az-investigator/scripts/install.sh
+bash ~/.config/opencode/skills/az-investigator/scripts/install.sh
 ```
 
 This installs (all to persistent paths):
@@ -220,7 +220,7 @@ The "hypothesized but did not prove" section is mandatory. If it's empty, you pr
 ## Phase 8 — Repair recipe (if sandbox was rebuilt and something broke)
 
 ```bash
-bash /Users/nhonh/Documents/geargames/.opencode/skills/az-investigator/scripts/repair.sh
+bash ~/.config/opencode/skills/az-investigator/scripts/repair.sh
 ```
 
 Diagnoses + reinstalls only what's missing. Idempotent.
